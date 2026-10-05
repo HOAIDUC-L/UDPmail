@@ -125,13 +125,12 @@ public class MailServerGUI extends JFrame {
         lblStatus.setFont(new Font("SansSerif", Font.BOLD, 13));
         lblStatus.setForeground(new Color(0, 128, 0));
 
-        String localIp = "127.0.0.1";
-        try {
-            localIp = InetAddress.getLocalHost().getHostAddress();
-        } catch (Exception ignored) {}
+        String localIp = common.PacketUtils.detectLanIp();
 
-        lblHost = new JLabel("IP: " + localIp);
-        lblHost.setFont(new Font("SansSerif", Font.PLAIN, 13));
+        lblHost = new JLabel("LAN IP: " + localIp);
+        lblHost.setFont(new Font("SansSerif", Font.BOLD, 13));
+        lblHost.setForeground(new Color(180, 40, 40));
+        lblHost.setToolTipText("Client tren may khac (vi du: Windows) can nhap IP nay vao o Server Host");
 
         lblPort = new JLabel("Port: " + Protocol.DEFAULT_PORT);
         lblPort.setFont(new Font("SansSerif", Font.PLAIN, 13));

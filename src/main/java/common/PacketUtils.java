@@ -57,4 +57,38 @@ public final class PacketUtils {
         DatagramPacket packet = createPacket(message, address, port);
         socket.send(packet);
     }
+
+    /**
+     * Resolves the primary local LAN IP address of this machine (avoiding loopback 127.0.x.x).
+     */
+    public static String detectLanIp() {
+        try (DatagramSocket probe = new DatagramSocket()) {
+            probe.connect(InetAddress.getByName("8.8.8.8"), 10002);
+            InetAddress localAddr = probe.getLocalAddress();
+            if (localAddr != null && !localAddr.isLoopbackAddress() && !localAddr.isAnyLocalAddress()) {
+                return localAddr.getHostAddress();
+            }
+        } catch (Exception ignored) {}
+
+        try {
+            java.util.Enumeration<java.net.NetworkInterface> interfaces = java.net.NetworkInterface.getNetworkInterfaces();
+            while (interfaces.hasMoreElements()) {
+                java.net.NetworkInterface iface = interfaces.nextElement();
+                if (iface.isLoopback() || !iface.isUp() || iface.isVirtual()) continue;
+                java.util.Enumeration<InetAddress> addresses = iface.getInetAddresses();
+                while (addresses.hasMoreElements()) {
+                    InetAddress addr = addresses.nextElement();
+                    if (addr instanceof java.net.Inet4Address && !addr.isLoopbackAddress() && !addr.isLinkLocalAddress()) {
+                        return addr.getHostAddress();
+                    }
+                }
+            }
+        } catch (Exception ignored) {}
+
+        try {
+            return InetAddress.getLocalHost().getHostAddress();
+        } catch (Exception ignored) {}
+
+        return "127.0.0.1";
+    }
 }

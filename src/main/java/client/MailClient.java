@@ -57,6 +57,14 @@ public class MailClient {
         return currentUser;
     }
 
+    public String getServerHost() {
+        return serverHost;
+    }
+
+    public int getServerPort() {
+        return serverPort;
+    }
+
     public int getLocalPort() {
         return socket != null ? socket.getLocalPort() : -1;
     }

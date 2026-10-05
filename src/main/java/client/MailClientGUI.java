@@ -560,6 +560,11 @@ public class MailClientGUI extends JFrame {
             return false;
         }
 
+        if (client != null && (!client.getServerHost().equalsIgnoreCase(host) || client.getServerPort() != port)) {
+            client.close();
+            client = null;
+        }
+
         if (client == null) {
             try {
                 client = new MailClient(host, port);
@@ -604,6 +609,8 @@ public class MailClientGUI extends JFrame {
 
         final String regEmail = email;
         final String regPass = password;
+        final String targetHost = txtServerHost.getText().trim();
+        final String targetPort = txtServerPort.getText().trim();
         new Thread(() -> {
             try {
                 String resp = client.register(username, regEmail, regPass);
@@ -620,7 +627,20 @@ public class MailClientGUI extends JFrame {
                 });
             } catch (Exception e) {
                 SwingUtilities.invokeLater(() -> {
-                    setAuthStatus("Registration failed: " + e.getMessage(), Color.RED);
+                    String err = e.getMessage() != null ? e.getMessage() : "";
+                    if (err.contains("timed out") || err.contains("unreachable")) {
+                        String msg = "Không thể kết nối đến Mail Server (" + targetHost + ":" + targetPort + ")!\n\n"
+                                + "Hướng dẫn khắc phục khi chạy 2 máy khác nhau (Windows & Linux):\n"
+                                + "1. Ô 'Host' trên máy Windows phải điền đúng IP mạng LAN của máy Linux (thay vì 127.0.0.1).\n"
+                                + "   (Xem địa chỉ 'LAN IP' hiển thị màu đỏ trên cửa sổ Mail Server ở máy Linux).\n"
+                                + "2. Máy Server (Linux) cần mở cổng tường lửa UDP 9999:\n"
+                                + "   Chạy lệnh: sudo ufw allow 9999/udp\n"
+                                + "3. Cả 2 máy phải kết nối chung một mạng Wi-Fi hoặc mạng LAN.";
+                        JOptionPane.showMessageDialog(this, msg, "Lỗi kết nối Server (Timeout)", JOptionPane.ERROR_MESSAGE);
+                        setAuthStatus("Timeout: Không kết nối được Server " + targetHost + ":" + targetPort, Color.RED);
+                    } else {
+                        setAuthStatus("Registration failed: " + e.getMessage(), Color.RED);
+                    }
                 });
             } finally {
                 SwingUtilities.invokeLater(() -> {
@@ -648,6 +668,8 @@ public class MailClientGUI extends JFrame {
         setAuthStatus("Logging in...", Color.BLUE);
         btnLogin.setEnabled(false);
 
+        final String targetHost = txtServerHost.getText().trim();
+        final String targetPort = txtServerPort.getText().trim();
         new Thread(() -> {
             try {
                 String listResponse = client.login(emailOrUser, password);
@@ -663,7 +685,20 @@ public class MailClientGUI extends JFrame {
                 });
             } catch (Exception e) {
                 SwingUtilities.invokeLater(() -> {
-                    setAuthStatus("Login failed: " + e.getMessage(), Color.RED);
+                    String err = e.getMessage() != null ? e.getMessage() : "";
+                    if (err.contains("timed out") || err.contains("unreachable")) {
+                        String msg = "Không thể kết nối đến Mail Server (" + targetHost + ":" + targetPort + ")!\n\n"
+                                + "Hướng dẫn khắc phục khi chạy 2 máy khác nhau (Windows & Linux):\n"
+                                + "1. Ô 'Host' trên máy Windows phải điền đúng IP mạng LAN của máy Linux (thay vì 127.0.0.1).\n"
+                                + "   (Xem địa chỉ 'LAN IP' hiển thị màu đỏ trên cửa sổ Mail Server ở máy Linux).\n"
+                                + "2. Máy Server (Linux) cần mở cổng tường lửa UDP 9999:\n"
+                                + "   Chạy lệnh: sudo ufw allow 9999/udp\n"
+                                + "3. Cả 2 máy phải kết nối chung một mạng Wi-Fi hoặc mạng LAN.";
+                        JOptionPane.showMessageDialog(this, msg, "Lỗi kết nối Server (Timeout)", JOptionPane.ERROR_MESSAGE);
+                        setAuthStatus("Timeout: Không kết nối được Server " + targetHost + ":" + targetPort, Color.RED);
+                    } else {
+                        setAuthStatus("Login failed: " + e.getMessage(), Color.RED);
+                    }
                 });
             } finally {
                 SwingUtilities.invokeLater(() -> {

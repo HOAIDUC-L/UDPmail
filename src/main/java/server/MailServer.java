@@ -114,7 +114,8 @@ public class MailServer {
         socket = new DatagramSocket(new InetSocketAddress(bindAddress, port));
         running = true;
 
-        log("SERVER", "Mail Server started on " + host + ":" + port + " [Thread Pool Size: " + THREAD_POOL_SIZE + "]");
+        String lanIp = common.PacketUtils.detectLanIp();
+        log("SERVER", "Mail Server started on " + host + ":" + port + " [LAN IP: " + lanIp + " - Client may khac can nhap IP nay]");
 
         receiverThread = new Thread(this::receiveLoop, "UDP-Receiver-Thread");
         receiverThread.start();
