@@ -1,3 +1,4 @@
-Bob|ACTIVE|bob123@udpmail.com|123456
-Alice|ACTIVE|alice123@gmail.com|123456
-hhh|ACTIVE|hhh@gmaill.com|123456
+Bob|ACTIVE|bob123@udpmail.com|123456|-|-|-
+qaqa|ACTIVE|qa@gmail.com|123456|-|-|-
+Alice|ACTIVE|alice123@gmail.com|123456|-|-|-
+hhh|ACTIVE|hhh@gmaill.com|123456|-|-|-

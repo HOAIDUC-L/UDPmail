@@ -226,9 +226,10 @@ public class MailRequestHandler implements Runnable {
             return Protocol.RESP_ERROR + Protocol.DELIMITER + "Cannot send mail: Recipient account is banned";
         }
 
-        // Save mail
-        mailStorage.saveMail(sender, targetEmail, content);
-        log("SEND_MAIL", "Mail delivered from " + sender + " to " + targetEmail + " (" + recipientUser + ")");
+        // Save mail with sender IP
+        String senderIp = (address != null) ? address.getHostAddress() : "127.0.0.1";
+        mailStorage.saveMail(sender, senderIp, targetEmail, content);
+        log("SEND_MAIL", "Mail delivered from " + sender + " (" + senderIp + ") to " + targetEmail + " (" + recipientUser + ")");
         return Protocol.RESP_SUCCESS + Protocol.DELIMITER + "Mail sent successfully";
     }
 

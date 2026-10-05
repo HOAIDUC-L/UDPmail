@@ -1,0 +1,6 @@
+From: SYSTEM (system@udpmail.com)
+To: qa@gmail.com
+Date: 2026-10-05 15:25:30
+Subject: Welcome to UDP Mail Service
+
+Thank you for using this service. We hope that you will feel comfortable using our mail service.

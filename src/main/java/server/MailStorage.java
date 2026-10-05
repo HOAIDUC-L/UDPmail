@@ -31,12 +31,23 @@ public class MailStorage {
         private volatile String status;
         private volatile String email;
         private volatile String password;
+        private volatile String loginTime;
+        private volatile String logoutTime;
+        private volatile String onlineDuration;
 
         public AccountRecord(String username, String status, String email, String password) {
+            this(username, status, email, password, "-", "-", "-");
+        }
+
+        public AccountRecord(String username, String status, String email, String password,
+                             String loginTime, String logoutTime, String onlineDuration) {
             this.username = username;
             this.status = status;
             this.email = email;
             this.password = (password != null && !password.trim().isEmpty()) ? password.trim() : "123456";
+            this.loginTime = (loginTime != null && !loginTime.trim().isEmpty()) ? loginTime.trim() : "-";
+            this.logoutTime = (logoutTime != null && !logoutTime.trim().isEmpty()) ? logoutTime.trim() : "-";
+            this.onlineDuration = (onlineDuration != null && !onlineDuration.trim().isEmpty()) ? onlineDuration.trim() : "-";
         }
 
         public String getUsername() {
@@ -65,6 +76,30 @@ public class MailStorage {
 
         public void setPassword(String password) {
             this.password = password;
+        }
+
+        public String getLoginTime() {
+            return loginTime;
+        }
+
+        public void setLoginTime(String loginTime) {
+            this.loginTime = (loginTime != null && !loginTime.trim().isEmpty()) ? loginTime.trim() : "-";
+        }
+
+        public String getLogoutTime() {
+            return logoutTime;
+        }
+
+        public void setLogoutTime(String logoutTime) {
+            this.logoutTime = (logoutTime != null && !logoutTime.trim().isEmpty()) ? logoutTime.trim() : "-";
+        }
+
+        public String getOnlineDuration() {
+            return onlineDuration;
+        }
+
+        public void setOnlineDuration(String onlineDuration) {
+            this.onlineDuration = (onlineDuration != null && !onlineDuration.trim().isEmpty()) ? onlineDuration.trim() : "-";
         }
     }
 
@@ -117,7 +152,7 @@ public class MailStorage {
                     if (line.isEmpty() || line.startsWith("#")) {
                         continue;
                     }
-                    String[] parts = line.split("\\|", 4);
+                    String[] parts = line.split("\\|", 7);
                     if (parts.length >= 2) {
                         String user = parts[0].trim();
                         String status = parts[1].trim().toUpperCase();
@@ -127,8 +162,14 @@ public class MailStorage {
                         String password = (parts.length >= 4 && !parts[3].trim().isEmpty())
                                 ? parts[3].trim()
                                 : "123456";
+                        String loginTime = (parts.length >= 5 && !parts[4].trim().isEmpty())
+                                ? parts[4].trim() : "-";
+                        String logoutTime = (parts.length >= 6 && !parts[5].trim().isEmpty())
+                                ? parts[5].trim() : "-";
+                        String onlineDuration = (parts.length >= 7 && !parts[6].trim().isEmpty())
+                                ? parts[6].trim() : "-";
 
-                        AccountRecord record = new AccountRecord(user, status, email, password);
+                        AccountRecord record = new AccountRecord(user, status, email, password, loginTime, logoutTime, onlineDuration);
                         accountsCache.put(user, record);
                         emailToUserCache.put(email, user);
                     }
@@ -148,11 +189,43 @@ public class MailStorage {
             Path tempFile = storageRoot.resolve("accounts.txt.tmp");
             try (BufferedWriter writer = Files.newBufferedWriter(tempFile, StandardCharsets.UTF_8)) {
                 for (AccountRecord record : accountsCache.values()) {
-                    writer.write(record.getUsername() + "|" + record.getStatus() + "|" + record.getEmail() + "|" + record.getPassword());
+                    writer.write(record.getUsername() + "|" + record.getStatus() + "|"
+                            + record.getEmail() + "|" + record.getPassword() + "|"
+                            + record.getLoginTime() + "|" + record.getLogoutTime() + "|"
+                            + record.getOnlineDuration());
                     writer.newLine();
                 }
             }
             Files.move(tempFile, accountsFile, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
+        } finally {
+            accountsLock.writeLock().unlock();
+        }
+    }
+
+    /**
+     * Updates account session time info (login, logout, duration) and persists to accounts.txt.
+     */
+    public void updateAccountSession(String username, String loginTime, String logoutTime, String onlineDuration) {
+        if (username == null) return;
+        accountsLock.writeLock().lock();
+        try {
+            AccountRecord record = accountsCache.get(username);
+            if (record != null) {
+                if (loginTime != null && !loginTime.isEmpty() && !"-".equals(loginTime)) {
+                    record.setLoginTime(loginTime);
+                }
+                if (logoutTime != null && !logoutTime.isEmpty()) {
+                    record.setLogoutTime(logoutTime);
+                }
+                if (onlineDuration != null && !onlineDuration.isEmpty()) {
+                    record.setOnlineDuration(onlineDuration);
+                }
+                try {
+                    saveAccounts();
+                } catch (IOException e) {
+                    System.err.println("Failed to save accounts after session update: " + e.getMessage());
+                }
+            }
         } finally {
             accountsLock.writeLock().unlock();
         }
@@ -324,6 +397,7 @@ public class MailStorage {
         Path welcomeMail = inboxDir.resolve("UNREAD_SYSTEM_new_email.txt");
         String nowStr = LocalDateTime.now().format(DATE_TIME_FORMATTER);
         String welcomeContent = "From: SYSTEM (system@udpmail.com)\n"
+                + "Sender IP: 127.0.0.1\n"
                 + "To: " + email + "\n"
                 + "Date: " + nowStr + "\n"
                 + "Subject: Welcome to UDP Mail Service\n\n"
@@ -380,6 +454,10 @@ public class MailStorage {
      * Saves incoming mail to recipient's inbox, and outgoing mail to sender's sent folder.
      */
     public synchronized String saveMail(String sender, String recipientEmail, String content) throws IOException {
+        return saveMail(sender, "127.0.0.1", recipientEmail, content);
+    }
+
+    public synchronized String saveMail(String sender, String senderIp, String recipientEmail, String content) throws IOException {
         String recipient = getUserByEmail(recipientEmail);
         if (recipient == null) {
             throw new IllegalArgumentException("Recipient email does not exist: " + recipientEmail);
@@ -402,6 +480,7 @@ public class MailStorage {
 
         String senderEmail = getEmailByUser(sender);
         if (senderEmail == null) senderEmail = sender + "@udpmail.com";
+        String ip = (senderIp != null && !senderIp.trim().isEmpty()) ? senderIp.trim() : "127.0.0.1";
 
         // 1. Deliver to Recipient's Inbox
         String inboxFilename = "UNREAD_" + sender + "_" + baseTime + ".txt";
@@ -424,6 +503,7 @@ public class MailStorage {
         }
 
         String recipientMailContent = "From: " + sender + " (" + senderEmail + ")\n"
+                + "Sender IP: " + ip + "\n"
                 + "To: " + recipientEmail + "\n"
                 + "Date: " + dateHeader + "\n"
                 + "Subject: " + mailSubject + "\n\n"
@@ -440,6 +520,7 @@ public class MailStorage {
             seq++;
         }
         String sentMailContent = "To: " + recipient + " (" + recipientEmail + ")\n"
+                + "Sender IP: " + ip + "\n"
                 + "Date: " + dateHeader + "\n"
                 + "Subject: " + mailSubject + "\n\n"
                 + mailBody;

@@ -294,10 +294,10 @@ public class MailServerGUI extends JFrame {
             String ip = "-";
             String port = "-";
             String status = accStatus;
-            String loginTime = "-";
-            String logoutTime = "-";
+            String loginTime = accRecord != null ? accRecord.getLoginTime() : "-";
+            String logoutTime = accRecord != null ? accRecord.getLogoutTime() : "-";
             String lastActive = "-";
-            String onlineDuration = "-";
+            String onlineDuration = accRecord != null ? accRecord.getOnlineDuration() : "-";
 
             if (session != null) {
                 if (session.getAddress() != null) {

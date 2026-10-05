@@ -62,6 +62,17 @@ public class MailServer {
             log("TIMEOUT", "User " + session.getUsername() + " timed out after 15s of inactivity. Marked OFFLINE.");
         });
 
+        // Automatically update account session timestamps and online duration in accounts.txt
+        this.sessionManager.addSessionChangeListener(session -> {
+            if (session != null && session.getUsername() != null) {
+                String user = session.getUsername();
+                String loginTime = session.formatTime(session.getLoginTime());
+                String logoutTime = session.formatTime(session.getLogoutTime());
+                String duration = session.getOnlineDurationFormatted();
+                mailStorage.updateAccountSession(user, loginTime, logoutTime, duration);
+            }
+        });
+
         // Periodic 30-day trash auto-purger (runs every 1 hour)
         this.trashPurgeScheduler = Executors.newSingleThreadScheduledExecutor(r -> {
             Thread t = new Thread(r, "Trash-Purge-Worker");

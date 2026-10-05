@@ -995,7 +995,8 @@ public class MailClientGUI extends JFrame {
                             String nextTrim = lines[j].trim();
                             if (nextTrim.isEmpty()) continue;
                             if (nextTrim.startsWith("Subject:") || nextTrim.startsWith("From:") ||
-                                    nextTrim.startsWith("To:") || nextTrim.startsWith("Date:")) {
+                                    nextTrim.startsWith("To:") || nextTrim.startsWith("Date:") ||
+                                    nextTrim.startsWith("Sender IP:") || nextTrim.startsWith("IP:")) {
                                 upcomingHeader = true;
                             }
                             break;
@@ -1009,7 +1010,8 @@ public class MailClientGUI extends JFrame {
 
                     if (trimmed.startsWith("Subject:")) {
                         subject = trimmed.substring("Subject:".length()).trim();
-                    } else if (trimmed.startsWith("From:") || trimmed.startsWith("To:")) {
+                    } else if (trimmed.startsWith("From:") || trimmed.startsWith("To:") ||
+                            trimmed.startsWith("Sender IP:") || trimmed.startsWith("IP:")) {
                         if (!senderTo.isEmpty()) senderTo += "  |  ";
                         senderTo += trimmed;
                     } else if (trimmed.startsWith("Date:")) {

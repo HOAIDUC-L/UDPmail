@@ -369,9 +369,59 @@ public class MailSystemIntegrationTest {
             String loginUserResp = clientCharlie.login("charlie", "MySecretPass99");
             assertNotNull(loginUserResp);
             assertEquals("charlie", clientCharlie.getCurrentUser());
+            clientCharlie.logout();
 
         } finally {
             clientCharlie.close();
+        }
+    }
+
+    @Test
+    @Order(11)
+    public void testSenderIpInSavedMailAndAccountSessionPersistence() throws Exception {
+        MailClient clientSender = new MailClient("127.0.0.1", TEST_PORT);
+        MailClient clientReceiver = new MailClient("127.0.0.1", TEST_PORT);
+        try {
+            clientSender.register("dan", "dan@udpmail.com", "pass1234");
+            clientReceiver.register("eve", "eve@udpmail.com", "pass1234");
+
+            clientSender.login("dan", "pass1234");
+            clientReceiver.login("eve", "pass1234");
+
+            // Send mail from dan to eve
+            clientSender.sendMail("eve@udpmail.com", "Subject: IP Test\n\nTesting Sender IP presence in file.");
+
+            // Eve checks inbox and reads mail
+            String eveInbox = clientReceiver.listFolder(Protocol.FOLDER_INBOX);
+            String targetMail = null;
+            String[] parts = eveInbox.split(Protocol.DELIMITER_REGEX);
+            for (String part : parts) {
+                if (part.contains("UNREAD_dan_")) {
+                    for (String token : part.split(",")) {
+                        if (token.startsWith("UNREAD_dan_")) {
+                            targetMail = token.trim();
+                            break;
+                        }
+                    }
+                }
+            }
+            assertNotNull(targetMail, "Eve should receive mail from dan");
+            String content = clientReceiver.readMail(Protocol.FOLDER_INBOX, targetMail);
+            assertTrue(content.contains("Sender IP: 127.0.0.1"), "Mail content should include Sender IP");
+
+            // Logout dan and check session persistence in accounts
+            clientSender.logout();
+            server.getMailStorage().loadAccounts();
+            server.MailStorage.AccountRecord danRecord = server.getMailStorage().getAllAccountRecords().get("dan");
+            assertNotNull(danRecord);
+            assertNotEquals("-", danRecord.getLoginTime(), "Login time should be recorded");
+            assertNotEquals("-", danRecord.getLogoutTime(), "Logout time should be recorded");
+            assertNotEquals("-", danRecord.getOnlineDuration(), "Online duration should be recorded");
+
+            clientReceiver.logout();
+        } finally {
+            clientSender.close();
+            clientReceiver.close();
         }
     }
 }
