@@ -36,13 +36,13 @@ public class MailClientGUI extends JFrame {
 
     // Login Tab Controls
     private JTextField txtLoginEmail;
-    private JPasswordField txtLoginPassword;
+    private JTextField txtLoginPassword;
     private JButton btnLogin;
 
     // Register Tab Controls
     private JTextField txtRegUsername;
     private JTextField txtRegEmail;
-    private JPasswordField txtRegPassword;
+    private JTextField txtRegPassword;
     private JButton btnRegister;
 
     private JLabel lblAuthStatus;
@@ -206,7 +206,7 @@ public class MailClientGUI extends JFrame {
         lgbc.weightx = 1.0;
         lgbc.fill = GridBagConstraints.HORIZONTAL;
         lgbc.anchor = GridBagConstraints.WEST;
-        txtLoginPassword = new JPasswordField();
+        txtLoginPassword = new JTextField();
         txtLoginPassword.setPreferredSize(new Dimension(220, 32));
         txtLoginPassword.setFont(new Font("SansSerif", Font.PLAIN, 13));
         txtLoginPassword.addActionListener(e -> onLoginClicked());
@@ -287,7 +287,7 @@ public class MailClientGUI extends JFrame {
         rgbc.weightx = 1.0;
         rgbc.fill = GridBagConstraints.HORIZONTAL;
         rgbc.anchor = GridBagConstraints.WEST;
-        txtRegPassword = new JPasswordField();
+        txtRegPassword = new JTextField();
         txtRegPassword.setPreferredSize(new Dimension(220, 32));
         txtRegPassword.setFont(new Font("SansSerif", Font.PLAIN, 13));
         txtRegPassword.addActionListener(e -> onRegisterClicked());
@@ -582,7 +582,7 @@ public class MailClientGUI extends JFrame {
 
         String username = txtRegUsername.getText().trim();
         String email = txtRegEmail.getText().trim();
-        String password = new String(txtRegPassword.getPassword()).trim();
+        String password = txtRegPassword.getText().trim();
 
         if (!Protocol.isValidUsername(username)) {
             setAuthStatus("Username must be 3-20 alphanumeric characters or underscore.", Color.RED);
@@ -654,7 +654,7 @@ public class MailClientGUI extends JFrame {
         if (!ensureClientConnected()) return;
 
         String emailOrUser = txtLoginEmail.getText().trim();
-        String password = new String(txtLoginPassword.getPassword()).trim();
+        String password = txtLoginPassword.getText().trim();
 
         if (emailOrUser.isEmpty()) {
             setAuthStatus("Please enter your Email or Username.", Color.RED);

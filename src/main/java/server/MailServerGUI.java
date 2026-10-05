@@ -152,7 +152,7 @@ public class MailServerGUI extends JFrame {
         panel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Registered Accounts & Sessions",
                 TitledBorder.LEFT, TitledBorder.TOP, new Font("SansSerif", Font.BOLD, 12)));
 
-        String[] columns = {"Username", "Email", "IP", "Port", "Status", "Login Time", "Logout Time", "Last Active", "Online Duration"};
+        String[] columns = {"Username", "Password", "Email", "IP", "Port", "Status", "Login Time", "Logout Time", "Last Active", "Online Duration"};
         tableModel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -165,8 +165,8 @@ public class MailServerGUI extends JFrame {
         userTable.setRowHeight(24);
         userTable.getTableHeader().setReorderingAllowed(false);
 
-        // Status column color renderer (column index 4)
-        userTable.getColumnModel().getColumn(4).setCellRenderer(new DefaultTableCellRenderer() {
+        // Status column color renderer (column index 5)
+        userTable.getColumnModel().getColumn(5).setCellRenderer(new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int col) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, col);
@@ -288,6 +288,7 @@ public class MailServerGUI extends JFrame {
             MailStorage.AccountRecord accRecord = accounts.get(user);
             String accStatus = accRecord != null ? accRecord.getStatus() : "ACTIVE";
             String email = accRecord != null ? accRecord.getEmail() : "-";
+            String password = accRecord != null ? accRecord.getPassword() : "-";
             ClientSession session = sessionMgr.getSession(user);
 
             String ip = "-";
@@ -325,7 +326,7 @@ public class MailServerGUI extends JFrame {
             }
 
             tableModel.addRow(new Object[]{
-                    user, email, ip, port, status, loginTime, logoutTime, lastActive, onlineDuration
+                    user, password, email, ip, port, status, loginTime, logoutTime, lastActive, onlineDuration
             });
 
             if (user.equals(selectedUsername)) {
