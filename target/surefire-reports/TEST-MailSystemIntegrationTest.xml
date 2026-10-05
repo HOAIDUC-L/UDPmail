@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="MailSystemIntegrationTest" time="0.409" tests="11" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="MailSystemIntegrationTest" time="0.397" tests="11" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -13,7 +13,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-17-openjdk-amd64/lib"/>
-    <property name="sun.java.command" value="/home/hduc/IdeaProjects/UDPmail/target/surefire/surefirebooter-20261005153314517_3.jar /home/hduc/IdeaProjects/UDPmail/target/surefire 2026-10-05T15-33-14_439-jvmRun1 surefire-20261005153314517_1tmp surefire_0-20261005153314517_2tmp"/>
+    <property name="sun.java.command" value="/home/hduc/IdeaProjects/UDPmail/target/surefire/surefirebooter-20261005154032138_3.jar /home/hduc/IdeaProjects/UDPmail/target/surefire 2026-10-05T15-40-32_059-jvmRun1 surefire-20261005154032138_1tmp surefire_0-20261005154032138_2tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/home/hduc/IdeaProjects/UDPmail/target/test-classes:/home/hduc/IdeaProjects/UDPmail/target/classes:/home/hduc/.m2/repository/org/junit/jupiter/junit-jupiter/5.10.2/junit-jupiter-5.10.2.jar:/home/hduc/.m2/repository/org/junit/jupiter/junit-jupiter-api/5.10.2/junit-jupiter-api-5.10.2.jar:/home/hduc/.m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/home/hduc/.m2/repository/org/junit/platform/junit-platform-commons/1.10.2/junit-platform-commons-1.10.2.jar:/home/hduc/.m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/home/hduc/.m2/repository/org/junit/jupiter/junit-jupiter-params/5.10.2/junit-jupiter-params-5.10.2.jar:/home/hduc/.m2/repository/org/junit/jupiter/junit-jupiter-engine/5.10.2/junit-jupiter-engine-5.10.2.jar:/home/hduc/.m2/repository/org/junit/platform/junit-platform-engine/1.10.2/junit-platform-engine-1.10.2.jar:"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -28,7 +28,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="/home/hduc/IdeaProjects/UDPmail/target/surefire/surefirebooter-20261005153314517_3.jar"/>
+    <property name="surefire.real.class.path" value="/home/hduc/IdeaProjects/UDPmail/target/surefire/surefirebooter-20261005154032138_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.20.1+1-1-26.04-Ubuntu"/>
     <property name="user.name" value="hduc"/>
@@ -53,222 +53,221 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="testRegisterAliceAndBobWithEmail" classname="MailSystemIntegrationTest" time="0.03">
-    <system-out><![CDATA[[15:33:14] [SERVER] Mail Server started on 127.0.0.1:19999 [LAN IP: 10.116.115.209 - Client may khac can nhap IP nay]
-[15:33:15] [RECEIVE] REGISTER|alice|alice@udpmail.com|123456 from 127.0.0.1:44920
-[15:33:15] [REGISTER] Registered new user: alice (alice@udpmail.com)
-[15:33:15] [SEND] SUCCESS|Register successfully to 127.0.0.1:44920
-[15:33:15] [RECEIVE] REGISTER|bob|bob@udpmail.com|123456 from 127.0.0.1:44920
-[15:33:15] [REGISTER] Registered new user: bob (bob@udpmail.com)
-[15:33:15] [SEND] SUCCESS|Register successfully to 127.0.0.1:44920
-[15:33:15] [RECEIVE] REGISTER|alice|another_alice@udpmail.com|123456 from 127.0.0.1:44920
-[15:33:15] [SEND] ERROR|Username already exists to 127.0.0.1:44920
-[15:33:15] [RECEIVE] REGISTER|alice2|alice@udpmail.com|123456 from 127.0.0.1:44920
-[15:33:15] [SEND] ERROR|Email address already in use to 127.0.0.1:44920
+  <testcase name="testRegisterAliceAndBobWithEmail" classname="MailSystemIntegrationTest" time="0.033">
+    <system-out><![CDATA[[15:40:32] [SERVER] Mail Server started on 127.0.0.1:19999 [LAN IP: 10.116.115.209 - Client may khac can nhap IP nay]
+[15:40:32] [RECEIVE] REGISTER|alice|alice@udpmail.com|123456 from 127.0.0.1:36184
+[15:40:32] [REGISTER] Registered new user: alice (alice@udpmail.com)
+[15:40:32] [SEND] SUCCESS|Register successfully to 127.0.0.1:36184
+[15:40:32] [RECEIVE] REGISTER|bob|bob@udpmail.com|123456 from 127.0.0.1:36184
+[15:40:32] [REGISTER] Registered new user: bob (bob@udpmail.com)
+[15:40:32] [SEND] SUCCESS|Register successfully to 127.0.0.1:36184
+[15:40:32] [RECEIVE] REGISTER|alice|another_alice@udpmail.com|123456 from 127.0.0.1:36184
+[15:40:32] [SEND] ERROR|Username already exists to 127.0.0.1:36184
+[15:40:32] [RECEIVE] REGISTER|alice2|alice@udpmail.com|123456 from 127.0.0.1:36184
+[15:40:32] [SEND] ERROR|Email address already in use to 127.0.0.1:36184
 ]]></system-out>
   </testcase>
-  <testcase name="testLoginAlice" classname="MailSystemIntegrationTest" time="0.012">
-    <system-out><![CDATA[[15:33:15] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:43948
-[15:33:15] [LOGIN] User alice (alice@udpmail.com) logged in from 127.0.0.1:43948
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|alice to 127.0.0.1:43948
-[15:33:15] [RECEIVE] HEARTBEAT|alice from 127.0.0.1:43948
-[15:33:15] [RECEIVE] LOGOUT|alice from 127.0.0.1:43948
-[15:33:15] [SEND] SUCCESS|ACK to 127.0.0.1:43948
-[15:33:15] [LOGOUT] User alice logged out
-[15:33:15] [SEND] SUCCESS|Logout successfully to 127.0.0.1:43948
+  <testcase name="testLoginAlice" classname="MailSystemIntegrationTest" time="0.011">
+    <system-out><![CDATA[[15:40:32] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:51483
+[15:40:32] [LOGIN] User alice (alice@udpmail.com) logged in from 127.0.0.1:51483
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|alice to 127.0.0.1:51483
+[15:40:32] [RECEIVE] HEARTBEAT|alice from 127.0.0.1:51483
+[15:40:32] [RECEIVE] LOGOUT|alice from 127.0.0.1:51483
+[15:40:32] [SEND] SUCCESS|ACK to 127.0.0.1:51483
+[15:40:32] [LOGOUT] User alice logged out
+[15:40:32] [SEND] SUCCESS|Logout successfully to 127.0.0.1:51483
 ]]></system-out>
   </testcase>
-  <testcase name="testSendMailAliceToBobByEmail" classname="MailSystemIntegrationTest" time="0.022">
-    <system-out><![CDATA[[15:33:15] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:38872
-[15:33:15] [LOGIN] User alice (alice@udpmail.com) logged in from 127.0.0.1:38872
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|alice to 127.0.0.1:38872
-[15:33:15] [RECEIVE] HEARTBEAT|alice from 127.0.0.1:38872
-[15:33:15] [RECEIVE] LOGIN|bob|123456 from 127.0.0.1:35751
-[15:33:15] [SEND] SUCCESS|ACK to 127.0.0.1:38872
-[15:33:15] [LOGIN] User bob (bob@udpmail.com) logged in from 127.0.0.1:35751
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|bob to 127.0.0.1:35751
-[15:33:15] [RECEIVE] HEARTBEAT|bob from 127.0.0.1:35751
-[15:33:15] [RECEIVE] SEND|alice|bob@udpmail.com|Hello Bob, this is sent using recipient email via UDP! from 127.0.0.1:38872
-[15:33:15] [SEND] SUCCESS|ACK to 127.0.0.1:35751
-[15:33:15] [SEND_MAIL] Mail delivered from alice (127.0.0.1) to bob@udpmail.com (bob)
-[15:33:15] [SEND] SUCCESS|Mail sent successfully to 127.0.0.1:38872
-[15:33:15] [RECEIVE] LIST_FOLDER|alice|SENT from 127.0.0.1:38872
-[15:33:15] [SEND] LIST|SENT|0|SENT_to_bob_20261005_153315.txt to 127.0.0.1:38872
-[15:33:15] [RECEIVE] LIST_FOLDER|bob|INBOX from 127.0.0.1:35751
-[15:33:15] [SEND] LIST|INBOX|2|UNREAD_alice_20261005_153315.txt,UNREAD_SYSTEM_new_email.txt to 127.0.0.1:35751
-[15:33:15] [RECEIVE] READ|bob|INBOX|UNREAD_alice_20261005_153315.txt from 127.0.0.1:35751
-[15:33:15] [SEND] CONTENT|From: alice (alice@udpmail.com)
+  <testcase name="testSendMailAliceToBobByEmail" classname="MailSystemIntegrationTest" time="0.021">
+    <system-out><![CDATA[[15:40:32] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:42186
+[15:40:32] [LOGIN] User alice (alice@udpmail.com) logged in from 127.0.0.1:42186
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|alice to 127.0.0.1:42186
+[15:40:32] [RECEIVE] LOGIN|bob|123456 from 127.0.0.1:50202
+[15:40:32] [RECEIVE] HEARTBEAT|alice from 127.0.0.1:42186
+[15:40:32] [LOGIN] User bob (bob@udpmail.com) logged in from 127.0.0.1:50202
+[15:40:32] [SEND] SUCCESS|ACK to 127.0.0.1:42186
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|bob to 127.0.0.1:50202
+[15:40:32] [RECEIVE] HEARTBEAT|bob from 127.0.0.1:50202
+[15:40:32] [RECEIVE] SEND|alice|bob@udpmail.com|Hello Bob, this is sent using recipient email via UDP! from 127.0.0.1:42186
+[15:40:32] [SEND] SUCCESS|ACK to 127.0.0.1:50202
+[15:40:32] [SEND_MAIL] Mail delivered from alice (127.0.0.1) to bob@udpmail.com (bob)
+[15:40:32] [SEND] SUCCESS|Mail sent successfully to 127.0.0.1:42186
+[15:40:32] [RECEIVE] LIST_FOLDER|alice|SENT from 127.0.0.1:42186
+[15:40:32] [SEND] LIST|SENT|0|SENT_to_bob_20261005_154032.txt to 127.0.0.1:42186
+[15:40:32] [RECEIVE] LIST_FOLDER|bob|INBOX from 127.0.0.1:50202
+[15:40:32] [SEND] LIST|INBOX|2|UNREAD_alice_20261005_154032.txt,UNREAD_SYSTEM_new_email.txt to 127.0.0.1:50202
+[15:40:32] [RECEIVE] READ|bob|INBOX|UNREAD_alice_20261005_154032.txt from 127.0.0.1:50202
+[15:40:32] [SEND] CONTENT|From: alice (alice@udpmail.com)
 Sender IP: 127.0.0.1
 To: bob@udpmail.com
-Date: 2026-10-05 15:33:15
+Date: 2026-10-05 15:40:32
 Subject: (No Subject)
 
-Hello Bob, this is sent using recipient email via UDP! to 127.0.0.1:35751
-[15:33:15] [RECEIVE] LIST_FOLDER|bob|INBOX from 127.0.0.1:35751
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt,READ_alice_20261005_153315.txt to 127.0.0.1:35751
-[15:33:15] [RECEIVE] SEND|alice|bob@udpmail.com|Subject: Tiêu đề kiểm thử rất dài: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+Hello Bob, this is sent using recipient email via UDP! to 127.0.0.1:50202
+[15:40:32] [RECEIVE] LIST_FOLDER|bob|INBOX from 127.0.0.1:50202
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt,READ_alice_20261005_154032.txt to 127.0.0.1:50202
+[15:40:32] [RECEIVE] SEND|alice|bob@udpmail.com|Subject: Tiêu đề kiểm thử rất dài: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
-Nội dung rất dài có dấu tiếng Việt: Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam.  from 127.0.0.1:38872
-[15:33:15] [SEND_MAIL] Mail delivered from alice (127.0.0.1) to bob@udpmail.com (bob)
-[15:33:15] [SEND] SUCCESS|Mail sent successfully to 127.0.0.1:38872
-[15:33:15] [RECEIVE] LIST_FOLDER|bob|INBOX from 127.0.0.1:35751
-[15:33:15] [SEND] LIST|INBOX|2|UNREAD_alice_20261005_153315.txt,UNREAD_SYSTEM_new_email.txt,READ_alice_20261005_153315.txt to 127.0.0.1:35751
-[15:33:15] [RECEIVE] READ|bob|INBOX|UNREAD_alice_20261005_153315.txt from 127.0.0.1:35751
-[15:33:15] [SEND] CONTENT|From: alice (alice@udpmail.com)
+Nội dung rất dài có dấu tiếng Việt: Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam.  from 127.0.0.1:42186
+[15:40:32] [SEND_MAIL] Mail delivered from alice (127.0.0.1) to bob@udpmail.com (bob)
+[15:40:32] [SEND] SUCCESS|Mail sent successfully to 127.0.0.1:42186
+[15:40:32] [RECEIVE] LIST_FOLDER|bob|INBOX from 127.0.0.1:50202
+[15:40:32] [SEND] LIST|INBOX|2|UNREAD_alice_20261005_154032.txt,UNREAD_SYSTEM_new_email.txt,READ_alice_20261005_154032.txt to 127.0.0.1:50202
+[15:40:32] [RECEIVE] READ|bob|INBOX|UNREAD_alice_20261005_154032.txt from 127.0.0.1:50202
+[15:40:32] [SEND] CONTENT|From: alice (alice@udpmail.com)
 Sender IP: 127.0.0.1
 To: bob@udpmail.com
-Date: 2026-10-05 15:33:15
+Date: 2026-10-05 15:40:32
 Subject: Tiêu đề kiểm thử rất dài: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
-Nội dung rất dài có dấu tiếng Việt: Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam.  to 127.0.0.1:35751
-[15:33:15] [RECEIVE] LOGOUT|alice from 127.0.0.1:38872
-[15:33:15] [LOGOUT] User alice logged out
-[15:33:15] [SEND] SUCCESS|Logout successfully to 127.0.0.1:38872
-[15:33:15] [RECEIVE] LOGOUT|bob from 127.0.0.1:35751
-[15:33:15] [LOGOUT] User bob logged out
-[15:33:15] [SEND] SUCCESS|Logout successfully to 127.0.0.1:35751
+Nội dung rất dài có dấu tiếng Việt: Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam. Cộng hòa xã hội chủ nghĩa Việt Nam.  to 127.0.0.1:50202
+[15:40:32] [RECEIVE] LOGOUT|alice from 127.0.0.1:42186
+[15:40:32] [LOGOUT] User alice logged out
+[15:40:32] [SEND] SUCCESS|Logout successfully to 127.0.0.1:42186
+[15:40:32] [RECEIVE] LOGOUT|bob from 127.0.0.1:50202
+[15:40:32] [LOGOUT] User bob logged out
+[15:40:32] [SEND] SUCCESS|Logout successfully to 127.0.0.1:50202
 ]]></system-out>
   </testcase>
-  <testcase name="testMoveToTrashAndPermanentDelete" classname="MailSystemIntegrationTest" time="0.009">
-    <system-out><![CDATA[[15:33:15] [RECEIVE] LOGIN|bob|123456 from 127.0.0.1:38998
-[15:33:15] [LOGIN] User bob (bob@udpmail.com) logged in from 127.0.0.1:38998
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt,READ_alice_20261005_153315.txt|bob to 127.0.0.1:38998
-[15:33:15] [RECEIVE] DELETE|bob|INBOX|UNREAD_SYSTEM_new_email.txt from 127.0.0.1:38998
-[15:33:15] [RECEIVE] HEARTBEAT|bob from 127.0.0.1:38998
-[15:33:15] [TRASH] User bob moved UNREAD_SYSTEM_new_email.txt from INBOX to TRASH
-[15:33:15] [SEND] SUCCESS|ACK to 127.0.0.1:38998
-[15:33:15] [SEND] SUCCESS|Mail moved to Trash to 127.0.0.1:38998
-[15:33:15] [RECEIVE] LIST_FOLDER|bob|INBOX from 127.0.0.1:38998
-[15:33:15] [SEND] LIST|INBOX|0|READ_alice_20261005_153315.txt to 127.0.0.1:38998
-[15:33:15] [RECEIVE] LIST_FOLDER|bob|TRASH from 127.0.0.1:38998
-[15:33:15] [SEND] LIST|TRASH|1|UNREAD_SYSTEM_new_email.txt to 127.0.0.1:38998
-[15:33:15] [RECEIVE] DELETE|bob|TRASH|UNREAD_SYSTEM_new_email.txt from 127.0.0.1:38998
-[15:33:15] [DELETE] User bob permanently deleted UNREAD_SYSTEM_new_email.txt from TRASH
-[15:33:15] [SEND] SUCCESS|Mail deleted permanently to 127.0.0.1:38998
-[15:33:15] [RECEIVE] LIST_FOLDER|bob|TRASH from 127.0.0.1:38998
-[15:33:15] [SEND] LIST|TRASH|0| to 127.0.0.1:38998
-[15:33:15] [RECEIVE] LOGOUT|bob from 127.0.0.1:38998
-[15:33:15] [LOGOUT] User bob logged out
-[15:33:15] [SEND] SUCCESS|Logout successfully to 127.0.0.1:38998
+  <testcase name="testMoveToTrashAndPermanentDelete" classname="MailSystemIntegrationTest" time="0.008">
+    <system-out><![CDATA[[15:40:32] [RECEIVE] LOGIN|bob|123456 from 127.0.0.1:52420
+[15:40:32] [LOGIN] User bob (bob@udpmail.com) logged in from 127.0.0.1:52420
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt,READ_alice_20261005_154032.txt|bob to 127.0.0.1:52420
+[15:40:32] [RECEIVE] HEARTBEAT|bob from 127.0.0.1:52420
+[15:40:32] [RECEIVE] DELETE|bob|INBOX|UNREAD_SYSTEM_new_email.txt from 127.0.0.1:52420
+[15:40:32] [SEND] SUCCESS|ACK to 127.0.0.1:52420
+[15:40:32] [TRASH] User bob moved UNREAD_SYSTEM_new_email.txt from INBOX to TRASH
+[15:40:32] [SEND] SUCCESS|Mail moved to Trash to 127.0.0.1:52420
+[15:40:32] [RECEIVE] LIST_FOLDER|bob|INBOX from 127.0.0.1:52420
+[15:40:32] [SEND] LIST|INBOX|0|READ_alice_20261005_154032.txt to 127.0.0.1:52420
+[15:40:32] [RECEIVE] LIST_FOLDER|bob|TRASH from 127.0.0.1:52420
+[15:40:32] [SEND] LIST|TRASH|1|UNREAD_SYSTEM_new_email.txt to 127.0.0.1:52420
+[15:40:32] [RECEIVE] DELETE|bob|TRASH|UNREAD_SYSTEM_new_email.txt from 127.0.0.1:52420
+[15:40:32] [DELETE] User bob permanently deleted UNREAD_SYSTEM_new_email.txt from TRASH
+[15:40:32] [SEND] SUCCESS|Mail deleted permanently to 127.0.0.1:52420
+[15:40:32] [RECEIVE] LIST_FOLDER|bob|TRASH from 127.0.0.1:52420
+[15:40:32] [SEND] LIST|TRASH|0| to 127.0.0.1:52420
+[15:40:32] [RECEIVE] LOGOUT|bob from 127.0.0.1:52420
+[15:40:32] [LOGOUT] User bob logged out
+[15:40:32] [SEND] SUCCESS|Logout successfully to 127.0.0.1:52420
 ]]></system-out>
   </testcase>
   <testcase name="testTrashAutoPurge30Days" classname="MailSystemIntegrationTest" time="0.003"/>
   <testcase name="testAntiSpoofingSenderValidation" classname="MailSystemIntegrationTest" time="0.006">
-    <system-out><![CDATA[[15:33:15] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:48428
-[15:33:15] [LOGIN] User alice (alice@udpmail.com) logged in from 127.0.0.1:48428
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|alice to 127.0.0.1:48428
-[15:33:15] [RECEIVE] HEARTBEAT|alice from 127.0.0.1:48428
-[15:33:15] [RECEIVE] SEND|bob|alice@udpmail.com|I am forging bob identity! from 127.0.0.1:40129
-[15:33:15] [RECEIVE] LIST_FOLDER|alice|INBOX from 127.0.0.1:48428
-[15:33:15] [SECURITY] Sender spoofing detected: Claimed bob from 127.0.0.1:40129
-[15:33:15] [SEND] ERROR|Unauthorized or spoofed sender: You must be logged in as bob to 127.0.0.1:40129
-[15:33:15] [SEND] SUCCESS|ACK to 127.0.0.1:48428
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt to 127.0.0.1:48428
-[15:33:15] [RECEIVE] LOGOUT|alice from 127.0.0.1:48428
-[15:33:15] [LOGOUT] User alice logged out
-[15:33:15] [SEND] SUCCESS|Logout successfully to 127.0.0.1:48428
+    <system-out><![CDATA[[15:40:32] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:58749
+[15:40:32] [LOGIN] User alice (alice@udpmail.com) logged in from 127.0.0.1:58749
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|alice to 127.0.0.1:58749
+[15:40:32] [RECEIVE] SEND|bob|alice@udpmail.com|I am forging bob identity! from 127.0.0.1:41530
+[15:40:32] [RECEIVE] HEARTBEAT|alice from 127.0.0.1:58749
+[15:40:32] [RECEIVE] LIST_FOLDER|alice|INBOX from 127.0.0.1:58749
+[15:40:32] [SECURITY] Sender spoofing detected: Claimed bob from 127.0.0.1:41530
+[15:40:32] [SEND] ERROR|Unauthorized or spoofed sender: You must be logged in as bob to 127.0.0.1:41530
+[15:40:32] [SEND] SUCCESS|ACK to 127.0.0.1:58749
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt to 127.0.0.1:58749
+[15:40:32] [RECEIVE] LOGOUT|alice from 127.0.0.1:58749
+[15:40:32] [LOGOUT] User alice logged out
+[15:40:32] [SEND] SUCCESS|Logout successfully to 127.0.0.1:58749
 ]]></system-out>
   </testcase>
-  <testcase name="testPathTraversalProtection" classname="MailSystemIntegrationTest" time="0.005">
-    <system-out><![CDATA[[15:33:15] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:45295
-[15:33:15] [LOGIN] User alice (alice@udpmail.com) logged in from 127.0.0.1:45295
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|alice to 127.0.0.1:45295
-[15:33:15] [RECEIVE] HEARTBEAT|alice from 127.0.0.1:45295
-[15:33:15] [SEND] SUCCESS|ACK to 127.0.0.1:45295
-[15:33:15] [RECEIVE] LOGOUT|alice from 127.0.0.1:45295
-[15:33:15] [LOGOUT] User alice logged out
-[15:33:15] [SEND] SUCCESS|Logout successfully to 127.0.0.1:45295
+  <testcase name="testPathTraversalProtection" classname="MailSystemIntegrationTest" time="0.006">
+    <system-out><![CDATA[[15:40:32] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:42291
+[15:40:32] [LOGIN] User alice (alice@udpmail.com) logged in from 127.0.0.1:42291
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|alice to 127.0.0.1:42291
+[15:40:32] [RECEIVE] HEARTBEAT|alice from 127.0.0.1:42291
+[15:40:32] [SEND] SUCCESS|ACK to 127.0.0.1:42291
+[15:40:32] [RECEIVE] LOGOUT|alice from 127.0.0.1:42291
+[15:40:32] [LOGOUT] User alice logged out
+[15:40:32] [SEND] SUCCESS|Logout successfully to 127.0.0.1:42291
 ]]></system-out>
   </testcase>
-  <testcase name="testKickUser" classname="MailSystemIntegrationTest" time="0.006">
-    <system-out><![CDATA[[15:33:15] [RECEIVE] LOGIN|bob|123456 from 127.0.0.1:33507
-[15:33:15] [LOGIN] User bob (bob@udpmail.com) logged in from 127.0.0.1:33507
-[15:33:15] [SEND] LIST|INBOX|0|READ_alice_20261005_153315.txt|bob to 127.0.0.1:33507
-[15:33:15] [RECEIVE] HEARTBEAT|bob from 127.0.0.1:33507
-[15:33:15] [SEND] KICK|Ban da bi Admin truc xuat khoi he thong to 127.0.0.1:33507
-[15:33:15] [SEND] SUCCESS|ACK to 127.0.0.1:33507
-[15:33:15] [KICK] User bob has been kicked by Admin.
+  <testcase name="testKickUser" classname="MailSystemIntegrationTest" time="0.004">
+    <system-out><![CDATA[[15:40:32] [RECEIVE] LOGIN|bob|123456 from 127.0.0.1:35304
+[15:40:32] [LOGIN] User bob (bob@udpmail.com) logged in from 127.0.0.1:35304
+[15:40:32] [SEND] LIST|INBOX|0|READ_alice_20261005_154032.txt|bob to 127.0.0.1:35304
+[15:40:32] [RECEIVE] HEARTBEAT|bob from 127.0.0.1:35304
+[15:40:32] [SEND] KICK|Ban da bi Admin truc xuat khoi he thong to 127.0.0.1:35304
+[15:40:32] [KICK] User bob has been kicked by Admin.
 ]]></system-out>
   </testcase>
   <testcase name="testBanAndUnbanUser" classname="MailSystemIntegrationTest" time="0.011">
-    <system-out><![CDATA[[15:33:15] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:38059
-[15:33:15] [LOGIN] User alice (alice@udpmail.com) logged in from 127.0.0.1:38059
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|alice to 127.0.0.1:38059
-[15:33:15] [RECEIVE] HEARTBEAT|alice from 127.0.0.1:38059
-[15:33:15] [SEND] KICK|Tai khoan cua ban da bi khoa boi Admin to 127.0.0.1:38059
-[15:33:15] [SEND] SUCCESS|ACK to 127.0.0.1:38059
-[15:33:15] [BAN] User alice has been BANNED by Admin. accounts.txt updated.
-[15:33:15] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:38059
-[15:33:15] [SEND] ERROR|Tai khoan da bi khoa to 127.0.0.1:38059
-[15:33:15] [UNBAN] User alice has been UNBANNED by Admin. accounts.txt updated.
-[15:33:15] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:38059
-[15:33:15] [LOGIN] User alice (alice@udpmail.com) logged in from 127.0.0.1:38059
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|alice to 127.0.0.1:38059
-[15:33:15] [RECEIVE] LOGOUT|alice from 127.0.0.1:38059
-[15:33:15] [LOGOUT] User alice logged out
-[15:33:15] [SEND] SUCCESS|Logout successfully to 127.0.0.1:38059
+    <system-out><![CDATA[[15:40:32] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:40811
+[15:40:32] [LOGIN] User alice (alice@udpmail.com) logged in from 127.0.0.1:40811
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|alice to 127.0.0.1:40811
+[15:40:32] [RECEIVE] HEARTBEAT|alice from 127.0.0.1:40811
+[15:40:32] [SEND] KICK|Tai khoan cua ban da bi khoa boi Admin to 127.0.0.1:40811
+[15:40:32] [SEND] SUCCESS|ACK to 127.0.0.1:40811
+[15:40:32] [BAN] User alice has been BANNED by Admin. accounts.txt updated.
+[15:40:32] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:40811
+[15:40:32] [SEND] ERROR|Tai khoan da bi khoa to 127.0.0.1:40811
+[15:40:32] [UNBAN] User alice has been UNBANNED by Admin. accounts.txt updated.
+[15:40:32] [RECEIVE] LOGIN|alice|123456 from 127.0.0.1:40811
+[15:40:32] [LOGIN] User alice (alice@udpmail.com) logged in from 127.0.0.1:40811
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|alice to 127.0.0.1:40811
+[15:40:32] [RECEIVE] LOGOUT|alice from 127.0.0.1:40811
+[15:40:32] [LOGOUT] User alice logged out
+[15:40:32] [SEND] SUCCESS|Logout successfully to 127.0.0.1:40811
 ]]></system-out>
   </testcase>
-  <testcase name="testPasswordAuthenticationAndEmailLogin" classname="MailSystemIntegrationTest" time="0.011">
-    <system-out><![CDATA[[15:33:15] [RECEIVE] REGISTER|charlie|charlie@udpmail.com|MySecretPass99 from 127.0.0.1:45000
-[15:33:15] [REGISTER] Registered new user: charlie (charlie@udpmail.com)
-[15:33:15] [SEND] SUCCESS|Register successfully to 127.0.0.1:45000
-[15:33:15] [RECEIVE] LOGIN|charlie@udpmail.com|WrongPass123 from 127.0.0.1:45000
-[15:33:15] [SEND] ERROR|Sai email hoac mat khau to 127.0.0.1:45000
-[15:33:15] [RECEIVE] LOGIN|unknown@udpmail.com|any from 127.0.0.1:45000
-[15:33:15] [SEND] ERROR|Account does not exist: unknown@udpmail.com to 127.0.0.1:45000
-[15:33:15] [RECEIVE] LOGIN|charlie@udpmail.com|MySecretPass99 from 127.0.0.1:45000
-[15:33:15] [LOGIN] User charlie (charlie@udpmail.com) logged in from 127.0.0.1:45000
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|charlie to 127.0.0.1:45000
-[15:33:15] [RECEIVE] LOGOUT|charlie from 127.0.0.1:45000
-[15:33:15] [LOGOUT] User charlie logged out
-[15:33:15] [SEND] SUCCESS|Logout successfully to 127.0.0.1:45000
-[15:33:15] [RECEIVE] LOGIN|charlie|MySecretPass99 from 127.0.0.1:45000
-[15:33:15] [LOGIN] User charlie (charlie@udpmail.com) logged in from 127.0.0.1:45000
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|charlie to 127.0.0.1:45000
-[15:33:15] [RECEIVE] LOGOUT|charlie from 127.0.0.1:45000
-[15:33:15] [LOGOUT] User charlie logged out
-[15:33:15] [SEND] SUCCESS|Logout successfully to 127.0.0.1:45000
+  <testcase name="testPasswordAuthenticationAndEmailLogin" classname="MailSystemIntegrationTest" time="0.01">
+    <system-out><![CDATA[[15:40:32] [RECEIVE] REGISTER|charlie|charlie@udpmail.com|MySecretPass99 from 127.0.0.1:34945
+[15:40:32] [REGISTER] Registered new user: charlie (charlie@udpmail.com)
+[15:40:32] [SEND] SUCCESS|Register successfully to 127.0.0.1:34945
+[15:40:32] [RECEIVE] LOGIN|charlie@udpmail.com|WrongPass123 from 127.0.0.1:34945
+[15:40:32] [SEND] ERROR|Sai email hoac mat khau to 127.0.0.1:34945
+[15:40:32] [RECEIVE] LOGIN|unknown@udpmail.com|any from 127.0.0.1:34945
+[15:40:32] [SEND] ERROR|Account does not exist: unknown@udpmail.com to 127.0.0.1:34945
+[15:40:32] [RECEIVE] LOGIN|charlie@udpmail.com|MySecretPass99 from 127.0.0.1:34945
+[15:40:32] [LOGIN] User charlie (charlie@udpmail.com) logged in from 127.0.0.1:34945
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|charlie to 127.0.0.1:34945
+[15:40:32] [RECEIVE] LOGOUT|charlie from 127.0.0.1:34945
+[15:40:32] [LOGOUT] User charlie logged out
+[15:40:32] [SEND] SUCCESS|Logout successfully to 127.0.0.1:34945
+[15:40:32] [RECEIVE] LOGIN|charlie|MySecretPass99 from 127.0.0.1:34945
+[15:40:32] [LOGIN] User charlie (charlie@udpmail.com) logged in from 127.0.0.1:34945
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|charlie to 127.0.0.1:34945
+[15:40:32] [RECEIVE] LOGOUT|charlie from 127.0.0.1:34945
+[15:40:32] [LOGOUT] User charlie logged out
+[15:40:32] [SEND] SUCCESS|Logout successfully to 127.0.0.1:34945
 ]]></system-out>
   </testcase>
   <testcase name="testSenderIpInSavedMailAndAccountSessionPersistence" classname="MailSystemIntegrationTest" time="0.014">
-    <system-out><![CDATA[[15:33:15] [RECEIVE] REGISTER|dan|dan@udpmail.com|pass1234 from 127.0.0.1:52998
-[15:33:15] [REGISTER] Registered new user: dan (dan@udpmail.com)
-[15:33:15] [SEND] SUCCESS|Register successfully to 127.0.0.1:52998
-[15:33:15] [RECEIVE] REGISTER|eve|eve@udpmail.com|pass1234 from 127.0.0.1:54409
-[15:33:15] [REGISTER] Registered new user: eve (eve@udpmail.com)
-[15:33:15] [SEND] SUCCESS|Register successfully to 127.0.0.1:54409
-[15:33:15] [RECEIVE] LOGIN|dan|pass1234 from 127.0.0.1:52998
-[15:33:15] [LOGIN] User dan (dan@udpmail.com) logged in from 127.0.0.1:52998
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|dan to 127.0.0.1:52998
-[15:33:15] [RECEIVE] LOGIN|eve|pass1234 from 127.0.0.1:54409
-[15:33:15] [RECEIVE] HEARTBEAT|dan from 127.0.0.1:52998
-[15:33:15] [LOGIN] User eve (eve@udpmail.com) logged in from 127.0.0.1:54409
-[15:33:15] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|eve to 127.0.0.1:54409
-[15:33:15] [SEND] SUCCESS|ACK to 127.0.0.1:52998
-[15:33:15] [RECEIVE] SEND|dan|eve@udpmail.com|Subject: IP Test
+    <system-out><![CDATA[[15:40:32] [RECEIVE] REGISTER|dan|dan@udpmail.com|pass1234 from 127.0.0.1:33324
+[15:40:32] [REGISTER] Registered new user: dan (dan@udpmail.com)
+[15:40:32] [SEND] SUCCESS|Register successfully to 127.0.0.1:33324
+[15:40:32] [RECEIVE] REGISTER|eve|eve@udpmail.com|pass1234 from 127.0.0.1:34200
+[15:40:32] [REGISTER] Registered new user: eve (eve@udpmail.com)
+[15:40:32] [SEND] SUCCESS|Register successfully to 127.0.0.1:34200
+[15:40:32] [RECEIVE] LOGIN|dan|pass1234 from 127.0.0.1:33324
+[15:40:32] [LOGIN] User dan (dan@udpmail.com) logged in from 127.0.0.1:33324
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|dan to 127.0.0.1:33324
+[15:40:32] [RECEIVE] LOGIN|eve|pass1234 from 127.0.0.1:34200
+[15:40:32] [RECEIVE] HEARTBEAT|dan from 127.0.0.1:33324
+[15:40:32] [LOGIN] User eve (eve@udpmail.com) logged in from 127.0.0.1:34200
+[15:40:32] [SEND] LIST|INBOX|1|UNREAD_SYSTEM_new_email.txt|eve to 127.0.0.1:34200
+[15:40:32] [SEND] SUCCESS|ACK to 127.0.0.1:33324
+[15:40:32] [RECEIVE] SEND|dan|eve@udpmail.com|Subject: IP Test
 
-Testing Sender IP presence in file. from 127.0.0.1:52998
-[15:33:15] [RECEIVE] HEARTBEAT|eve from 127.0.0.1:54409
-[15:33:15] [SEND_MAIL] Mail delivered from dan (127.0.0.1) to eve@udpmail.com (eve)
-[15:33:15] [SEND] SUCCESS|Mail sent successfully to 127.0.0.1:52998
-[15:33:15] [SEND] SUCCESS|ACK to 127.0.0.1:54409
-[15:33:15] [RECEIVE] LIST_FOLDER|eve|INBOX from 127.0.0.1:54409
-[15:33:15] [SEND] LIST|INBOX|2|UNREAD_dan_20261005_153315.txt,UNREAD_SYSTEM_new_email.txt to 127.0.0.1:54409
-[15:33:15] [RECEIVE] READ|eve|INBOX|UNREAD_dan_20261005_153315.txt from 127.0.0.1:54409
-[15:33:15] [SEND] CONTENT|From: dan (dan@udpmail.com)
+Testing Sender IP presence in file. from 127.0.0.1:33324
+[15:40:32] [RECEIVE] HEARTBEAT|eve from 127.0.0.1:34200
+[15:40:32] [SEND_MAIL] Mail delivered from dan (127.0.0.1) to eve@udpmail.com (eve)
+[15:40:32] [SEND] SUCCESS|Mail sent successfully to 127.0.0.1:33324
+[15:40:32] [SEND] SUCCESS|ACK to 127.0.0.1:34200
+[15:40:32] [RECEIVE] LIST_FOLDER|eve|INBOX from 127.0.0.1:34200
+[15:40:32] [SEND] LIST|INBOX|2|UNREAD_dan_20261005_154032.txt,UNREAD_SYSTEM_new_email.txt to 127.0.0.1:34200
+[15:40:32] [RECEIVE] READ|eve|INBOX|UNREAD_dan_20261005_154032.txt from 127.0.0.1:34200
+[15:40:32] [SEND] CONTENT|From: dan (dan@udpmail.com)
 Sender IP: 127.0.0.1
 To: eve@udpmail.com
-Date: 2026-10-05 15:33:15
+Date: 2026-10-05 15:40:32
 Subject: IP Test
 
-Testing Sender IP presence in file. to 127.0.0.1:54409
-[15:33:15] [RECEIVE] LOGOUT|dan from 127.0.0.1:52998
-[15:33:15] [LOGOUT] User dan logged out
-[15:33:15] [SEND] SUCCESS|Logout successfully to 127.0.0.1:52998
-[15:33:15] [RECEIVE] LOGOUT|eve from 127.0.0.1:54409
-[15:33:15] [LOGOUT] User eve logged out
-[15:33:15] [SEND] SUCCESS|Logout successfully to 127.0.0.1:54409
+Testing Sender IP presence in file. to 127.0.0.1:34200
+[15:40:32] [RECEIVE] LOGOUT|dan from 127.0.0.1:33324
+[15:40:32] [LOGOUT] User dan logged out
+[15:40:32] [SEND] SUCCESS|Logout successfully to 127.0.0.1:33324
+[15:40:32] [RECEIVE] LOGOUT|eve from 127.0.0.1:34200
+[15:40:32] [LOGOUT] User eve logged out
+[15:40:32] [SEND] SUCCESS|Logout successfully to 127.0.0.1:34200
 ]]></system-out>
   </testcase>
 </testsuite>

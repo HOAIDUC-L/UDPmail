@@ -385,6 +385,14 @@ public class MailSystemIntegrationTest {
             clientSender.register("dan", "dan@udpmail.com", "pass1234");
             clientReceiver.register("eve", "eve@udpmail.com", "pass1234");
 
+            // Verify info.txt created in user folder upon registration
+            java.nio.file.Path danInfoFile = server.getMailStorage().getUserDirectory("dan").resolve("info.txt");
+            assertTrue(java.nio.file.Files.exists(danInfoFile), "info.txt should be created in user folder");
+            String danInfoContent = java.nio.file.Files.readString(danInfoFile);
+            assertTrue(danInfoContent.contains("Username: dan"));
+            assertTrue(danInfoContent.contains("Password: pass1234"));
+            assertTrue(danInfoContent.contains("Created Date:"));
+
             clientSender.login("dan", "pass1234");
             clientReceiver.login("eve", "pass1234");
 

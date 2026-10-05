@@ -133,6 +133,26 @@ public class MailStorage {
             Files.createFile(accountsFile);
         } else {
             loadAccounts();
+            ensureUserInfoFiles();
+        }
+    }
+
+    private void ensureUserInfoFiles() {
+        String nowStr = LocalDateTime.now().format(DATE_TIME_FORMATTER);
+        for (AccountRecord record : accountsCache.values()) {
+            try {
+                Path userDir = getUserDirectory(record.getUsername());
+                if (Files.exists(userDir)) {
+                    Path infoFile = userDir.resolve("info.txt");
+                    if (!Files.exists(infoFile)) {
+                        String infoContent = "Username: " + record.getUsername() + "\n"
+                                + "Password: " + record.getPassword() + "\n"
+                                + "Email: " + record.getEmail() + "\n"
+                                + "Created Date: " + nowStr + "\n";
+                        Files.writeString(infoFile, infoContent, StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+                    }
+                }
+            } catch (Exception ignored) {}
         }
     }
 
@@ -384,7 +404,10 @@ public class MailStorage {
         emailToUserCache.put(email, username);
         saveAccounts();
 
-        // Create user directories: inbox, sent, trash
+        // Create user directory and subdirectories: inbox, sent, trash
+        Path userDir = getUserDirectory(username);
+        if (!Files.exists(userDir)) Files.createDirectories(userDir);
+
         Path inboxDir = getFolderDirectory(username, Protocol.FOLDER_INBOX);
         Path sentDir = getFolderDirectory(username, Protocol.FOLDER_SENT);
         Path trashDir = getFolderDirectory(username, Protocol.FOLDER_TRASH);
@@ -393,9 +416,18 @@ public class MailStorage {
         if (!Files.exists(sentDir)) Files.createDirectories(sentDir);
         if (!Files.exists(trashDir)) Files.createDirectories(trashDir);
 
+        String nowStr = LocalDateTime.now().format(DATE_TIME_FORMATTER);
+
+        // Create user info text file inside account directory: info.txt
+        Path infoFile = userDir.resolve("info.txt");
+        String infoContent = "Username: " + username + "\n"
+                + "Password: " + password.trim() + "\n"
+                + "Email: " + email + "\n"
+                + "Created Date: " + nowStr + "\n";
+        Files.writeString(infoFile, infoContent, StandardCharsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+
         // Create welcome email in inbox: UNREAD_SYSTEM_new_email.txt
         Path welcomeMail = inboxDir.resolve("UNREAD_SYSTEM_new_email.txt");
-        String nowStr = LocalDateTime.now().format(DATE_TIME_FORMATTER);
         String welcomeContent = "From: SYSTEM (system@udpmail.com)\n"
                 + "Sender IP: 127.0.0.1\n"
                 + "To: " + email + "\n"
