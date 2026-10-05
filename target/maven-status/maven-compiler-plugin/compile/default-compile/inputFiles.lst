@@ -1,0 +1,11 @@
+/home/hduc/IdeaProjects/UDPmail/src/main/java/server/SessionManager.java
+/home/hduc/IdeaProjects/UDPmail/src/main/java/server/MailRequestHandler.java
+/home/hduc/IdeaProjects/UDPmail/src/main/java/client/MailClientGUI.java
+/home/hduc/IdeaProjects/UDPmail/src/main/java/server/MailServerGUI.java
+/home/hduc/IdeaProjects/UDPmail/src/main/java/common/Protocol.java
+/home/hduc/IdeaProjects/UDPmail/src/main/java/server/MailStorage.java
+/home/hduc/IdeaProjects/UDPmail/src/main/java/client/MailClient.java
+/home/hduc/IdeaProjects/UDPmail/src/main/java/server/MailServer.java
+/home/hduc/IdeaProjects/UDPmail/src/main/java/common/PacketUtils.java
+/home/hduc/IdeaProjects/UDPmail/src/main/java/server/ClientSession.java
+/home/hduc/IdeaProjects/UDPmail/src/main/java/client/HeartbeatManager.java
