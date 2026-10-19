@@ -3,6 +3,7 @@
 /home/hduc/IdeaProjects/UDPmail/src/main/java/client/MailClientGUI.java
 /home/hduc/IdeaProjects/UDPmail/src/main/java/server/MailServerGUI.java
 /home/hduc/IdeaProjects/UDPmail/src/main/java/common/Protocol.java
+/home/hduc/IdeaProjects/UDPmail/src/main/java/server/GmailSmtpRelay.java
 /home/hduc/IdeaProjects/UDPmail/src/main/java/server/MailStorage.java
 /home/hduc/IdeaProjects/UDPmail/src/main/java/client/MailClient.java
 /home/hduc/IdeaProjects/UDPmail/src/main/java/server/MailServer.java

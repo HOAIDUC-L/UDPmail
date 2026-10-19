@@ -275,7 +275,8 @@ public class MailClient {
 
         String req = Protocol.CMD_SEND + Protocol.DELIMITER + currentUser + Protocol.DELIMITER
                 + recipientEmail.trim() + Protocol.DELIMITER + content;
-        String resp = sendAndReceive(req, DEFAULT_REQUEST_TIMEOUT_MS);
+        // Allow up to 12s for potential Gmail SMTP TLS connection and delivery
+        String resp = sendAndReceive(req, 12000);
         return parseResponse(resp);
     }
 

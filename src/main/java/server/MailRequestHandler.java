@@ -206,31 +206,77 @@ public class MailRequestHandler implements Runnable {
             return Protocol.RESP_ERROR + Protocol.DELIMITER + "Tai khoan da bi khoa";
         }
 
-        // Check if recipient is specified by email or username
+        // 1. Determine if recipient is internal or external
         String targetEmail = recipientEmail;
-        if (!mailStorage.emailExists(targetEmail)) {
-            if (mailStorage.accountExists(recipientEmail)) {
-                // Auto-resolve username to email
-                targetEmail = mailStorage.getEmailByUser(recipientEmail);
-            } else {
-                return Protocol.RESP_ERROR + Protocol.DELIMITER + "Recipient email does not exist: " + recipientEmail;
+        boolean isInternal = false;
+
+        if (mailStorage.emailExists(targetEmail)) {
+            isInternal = true;
+        } else if (mailStorage.accountExists(recipientEmail)) {
+            // Specified by internal username
+            targetEmail = mailStorage.getEmailByUser(recipientEmail);
+            isInternal = true;
+        } else if (targetEmail.toLowerCase().endsWith("@udpmail.com")) {
+            // Internal domain, but email doesn't exist
+            return Protocol.RESP_ERROR + Protocol.DELIMITER + "Recipient email does not exist: " + recipientEmail;
+        }
+
+        String senderIp = (address != null) ? address.getHostAddress() : "127.0.0.1";
+
+        if (isInternal) {
+            String recipientUser = mailStorage.getUserByEmail(targetEmail);
+            if (recipientUser == null) {
+                return Protocol.RESP_ERROR + Protocol.DELIMITER + "Recipient email does not exist: " + targetEmail;
+            }
+
+            if (Protocol.ACCOUNT_BANNED.equalsIgnoreCase(mailStorage.getAccountStatus(recipientUser))) {
+                return Protocol.RESP_ERROR + Protocol.DELIMITER + "Cannot send mail: Recipient account is banned";
+            }
+
+            // Save mail with sender IP (delivers to recipient inbox and sender sent)
+            mailStorage.saveMail(sender, senderIp, targetEmail, content);
+            log("SEND_MAIL", "Mail delivered from " + sender + " (" + senderIp + ") to " + targetEmail + " (" + recipientUser + ")");
+            return Protocol.RESP_SUCCESS + Protocol.DELIMITER + "Mail sent successfully";
+        } else {
+            // External internet email (e.g. @gmail.com)
+            if (!Protocol.isValidEmail(targetEmail)) {
+                return Protocol.RESP_ERROR + Protocol.DELIMITER + "Invalid recipient email address: " + recipientEmail;
+            }
+
+            // Check if Gmail SMTP Relay Gateway is configured (ensure fresh config from disk)
+            GmailSmtpRelay.reloadConfig();
+            if (!GmailSmtpRelay.isConfigured()) {
+                log("SMTP_RELAY", "Relay requested for " + targetEmail + " but Gmail SMTP Gateway is not configured.");
+                return Protocol.RESP_ERROR + Protocol.DELIMITER
+                        + "Gmail SMTP Relay chua duoc cau hinh tren Server. Vui long lien he Admin thiet lap Gmail App Password.";
+            }
+
+            // Parse Subject and Body for Relay
+            String mailSubject = "(No Subject)";
+            String mailBody = content;
+            if (content.startsWith("Subject: ")) {
+                int subEnd = content.indexOf("\n\n");
+                if (subEnd != -1) {
+                    mailSubject = content.substring("Subject: ".length(), subEnd).trim();
+                    mailBody = content.substring(subEnd + 2);
+                }
+            }
+
+            // 1. Save local copy in sender's Sent mailbox
+            mailStorage.saveSentMail(sender, senderIp, targetEmail, content);
+
+            // 2. Perform SMTP Relay
+            log("SMTP_RELAY", "Dang chuyen tiep email tu " + sender + " toi " + targetEmail + " qua Gmail SMTP...");
+            try {
+                GmailSmtpRelay.relay(sender, targetEmail, mailSubject, mailBody);
+                log("SMTP_RELAY", "Chuyen tiep thanh cong email tu " + sender + " toi " + targetEmail + "!");
+                return Protocol.RESP_SUCCESS + Protocol.DELIMITER
+                        + "Thư đã được lưu và chuyển tiếp thành công tới Gmail (" + targetEmail + ")!";
+            } catch (Exception e) {
+                log("SMTP_ERROR", "Loi chuyen tiep SMTP toi " + targetEmail + ": " + e.getMessage());
+                return Protocol.RESP_ERROR + Protocol.DELIMITER + "Lỗi gửi mail qua SMTP: " + e.getMessage();
             }
         }
-
-        String recipientUser = mailStorage.getUserByEmail(targetEmail);
-        if (recipientUser == null) {
-            return Protocol.RESP_ERROR + Protocol.DELIMITER + "Recipient email does not exist: " + targetEmail;
-        }
-
-        if (Protocol.ACCOUNT_BANNED.equalsIgnoreCase(mailStorage.getAccountStatus(recipientUser))) {
-            return Protocol.RESP_ERROR + Protocol.DELIMITER + "Cannot send mail: Recipient account is banned";
-        }
-
-        // Save mail with sender IP
-        String senderIp = (address != null) ? address.getHostAddress() : "127.0.0.1";
-        mailStorage.saveMail(sender, senderIp, targetEmail, content);
-        log("SEND_MAIL", "Mail delivered from " + sender + " (" + senderIp + ") to " + targetEmail + " (" + recipientUser + ")");
-        return Protocol.RESP_SUCCESS + Protocol.DELIMITER + "Mail sent successfully";
     }
 
     private String handleRead(String rawMessage, InetAddress address, int port) throws IOException {

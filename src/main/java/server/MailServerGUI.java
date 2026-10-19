@@ -28,6 +28,7 @@ public class MailServerGUI extends JFrame {
     private JLabel lblHost;
     private JLabel lblPort;
     private JLabel lblOnlineCount;
+    private JLabel lblSmtpStatus;
 
     private JTable userTable;
     private DefaultTableModel tableModel;
@@ -37,6 +38,7 @@ public class MailServerGUI extends JFrame {
     private JButton btnBan;
     private JButton btnUnban;
     private JButton btnRefresh;
+    private JButton btnSmtpConfig;
 
     private Timer refreshTimer;
 
@@ -114,7 +116,7 @@ public class MailServerGUI extends JFrame {
     }
 
     private JPanel createServerInfoPanel() {
-        JPanel panel = new JPanel(new GridLayout(1, 4, 15, 0));
+        JPanel panel = new JPanel(new GridLayout(1, 5, 10, 0));
         panel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Server Information",
                         TitledBorder.LEFT, TitledBorder.TOP, new Font("SansSerif", Font.BOLD, 12)),
@@ -139,10 +141,15 @@ public class MailServerGUI extends JFrame {
         lblOnlineCount.setFont(new Font("SansSerif", Font.BOLD, 13));
         lblOnlineCount.setForeground(new Color(0, 70, 160));
 
+        lblSmtpStatus = new JLabel("Gmail Relay: OFF");
+        lblSmtpStatus.setFont(new Font("SansSerif", Font.BOLD, 12));
+        updateSmtpStatusDisplay();
+
         panel.add(lblStatus);
         panel.add(lblHost);
         panel.add(lblPort);
         panel.add(lblOnlineCount);
+        panel.add(lblSmtpStatus);
 
         return panel;
     }
@@ -193,6 +200,12 @@ public class MailServerGUI extends JFrame {
         // Admin Action buttons toolbar
         JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 5));
 
+        btnSmtpConfig = new JButton("⚙ Gmail Relay Config");
+        btnSmtpConfig.setToolTipText("Cấu hình tài khoản Gmail và App Password để chuyển tiếp thư ra Gmail thật");
+        btnSmtpConfig.setFont(new Font("SansSerif", Font.BOLD, 12));
+        btnSmtpConfig.setBackground(new Color(230, 245, 255));
+        btnSmtpConfig.addActionListener(e -> openSmtpConfigDialog());
+
         btnKick = new JButton("Kick User");
         btnKick.setToolTipText("Disconnect the selected online user immediately");
         btnKick.addActionListener(e -> onKickClicked());
@@ -210,6 +223,7 @@ public class MailServerGUI extends JFrame {
         btnRefresh = new JButton("Refresh");
         btnRefresh.addActionListener(e -> refreshUserTable());
 
+        btnPanel.add(btnSmtpConfig);
         btnPanel.add(btnKick);
         btnPanel.add(btnBan);
         btnPanel.add(btnUnban);
@@ -388,6 +402,150 @@ public class MailServerGUI extends JFrame {
             server.unbanUser(username);
             refreshUserTable();
         }
+    }
+
+    private void updateSmtpStatusDisplay() {
+        if (lblSmtpStatus == null) return;
+        if (GmailSmtpRelay.isConfigured()) {
+            lblSmtpStatus.setText("Gmail Relay: ACTIVE (" + GmailSmtpRelay.getUsername() + ")");
+            lblSmtpStatus.setForeground(new Color(0, 130, 0));
+            lblSmtpStatus.setToolTipText("Hệ thống sẵn sàng chuyển tiếp thư ra Gmail thật");
+        } else if (GmailSmtpRelay.isEnabled()) {
+            lblSmtpStatus.setText("Gmail Relay: ENABLED (Chưa có mật khẩu)");
+            lblSmtpStatus.setForeground(new Color(200, 120, 0));
+            lblSmtpStatus.setToolTipText("Cần nhập đầy đủ Gmail và Google App Password");
+        } else {
+            lblSmtpStatus.setText("Gmail Relay: OFF");
+            lblSmtpStatus.setForeground(Color.GRAY);
+            lblSmtpStatus.setToolTipText("Chưa kích hoạt tính năng chuyển tiếp Gmail");
+        }
+    }
+
+    private void openSmtpConfigDialog() {
+        JDialog dialog = new JDialog(this, "⚙ Cấu hình Gmail SMTP Relay Gateway", true);
+        dialog.setLayout(new BorderLayout(10, 10));
+        dialog.setSize(520, 360);
+        dialog.setLocationRelativeTo(this);
+        dialog.setResizable(false);
+
+        JPanel contentPanel = new JPanel(new GridBagLayout());
+        contentPanel.setBorder(new EmptyBorder(15, 20, 10, 20));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(6, 6, 6, 6);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        GmailSmtpRelay.reloadConfig();
+        boolean initialEnabled = GmailSmtpRelay.isEnabled() || (!GmailSmtpRelay.getUsername().isEmpty() && !GmailSmtpRelay.getPassword().isEmpty());
+        JCheckBox chkEnable = new JCheckBox("Kích hoạt chuyển tiếp thư ra Gmail thật (SMTP Relay Gateway)", initialEnabled);
+        chkEnable.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+        JTextField txtGmail = new JTextField(GmailSmtpRelay.getUsername(), 25);
+        JPasswordField txtAppPassword = new JPasswordField(GmailSmtpRelay.getPassword(), 25);
+
+        JLabel lblNotice = new JLabel("<html><font color='#555555'><b>Lưu ý:</b> Mật khẩu là <b>Google App Password (16 ký tự)</b>, "
+                + "KHÔNG PHẢI mật khẩu đăng nhập Google.<br>"
+                + "Tạo tại: <i>Google Account &rarr; Security &rarr; 2-Step Verification &rarr; App passwords</i>.</font></html>");
+        lblNotice.setFont(new Font("SansSerif", Font.PLAIN, 11));
+
+        JLabel lblTestResult = new JLabel(" ");
+        lblTestResult.setFont(new Font("SansSerif", Font.BOLD, 12));
+
+        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
+        contentPanel.add(chkEnable, gbc);
+
+        gbc.gridx = 0; gbc.gridy = 1; gbc.gridwidth = 1;
+        contentPanel.add(new JLabel("Gmail Server:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 1;
+        contentPanel.add(txtGmail, gbc);
+
+        gbc.gridx = 0; gbc.gridy = 2;
+        contentPanel.add(new JLabel("App Password:"), gbc);
+        gbc.gridx = 1; gbc.gridy = 2;
+        contentPanel.add(txtAppPassword, gbc);
+
+        gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
+        contentPanel.add(lblNotice, gbc);
+
+        gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2;
+        contentPanel.add(lblTestResult, gbc);
+
+        dialog.add(contentPanel, BorderLayout.CENTER);
+
+        // Buttons
+        JPanel btnPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        JButton btnTest = new JButton("Kiểm tra kết nối");
+        JButton btnSave = new JButton("Lưu cấu hình");
+        JButton btnCancel = new JButton("Đóng");
+
+        btnTest.addActionListener(e -> {
+            String testUser = txtGmail.getText().trim();
+            String testPass = new String(txtAppPassword.getPassword()).trim();
+            if (testUser.isEmpty() || testPass.isEmpty()) {
+                lblTestResult.setText("Vui lòng nhập email và App Password!");
+                lblTestResult.setForeground(Color.RED);
+                return;
+            }
+
+            btnTest.setEnabled(false);
+            lblTestResult.setText("Đang kiểm tra kết nối tới smtp.gmail.com:587 (TLS)...");
+            lblTestResult.setForeground(new Color(0, 70, 160));
+
+            new Thread(() -> {
+                try {
+                    GmailSmtpRelay.testConnection(testUser, testPass);
+                    SwingUtilities.invokeLater(() -> {
+                        lblTestResult.setText("✓ Kết nối và xác thực Gmail SMTP thành công!");
+                        lblTestResult.setForeground(new Color(0, 140, 0));
+                        chkEnable.setSelected(true);
+                        btnTest.setEnabled(true);
+                    });
+                } catch (Exception ex) {
+                    SwingUtilities.invokeLater(() -> {
+                        lblTestResult.setText("✗ Lỗi xác thực: " + ex.getMessage());
+                        lblTestResult.setForeground(Color.RED);
+                        btnTest.setEnabled(true);
+                    });
+                }
+            }).start();
+        });
+
+        btnSave.addActionListener(e -> {
+            String user = txtGmail.getText().trim();
+            String pass = new String(txtAppPassword.getPassword()).trim();
+            boolean enabled = chkEnable.isSelected();
+
+            if (!user.isEmpty() && !pass.isEmpty() && !enabled) {
+                int option = JOptionPane.showConfirmDialog(dialog,
+                        "Bạn đã nhập thông tin Gmail nhưng chưa tích chọn ô 'Kích hoạt'.\n"
+                        + "Bạn có muốn BẬT tính năng chuyển tiếp ngay bây giờ không?",
+                        "Kích hoạt Gmail Relay", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    enabled = true;
+                    chkEnable.setSelected(true);
+                }
+            }
+
+            try {
+                GmailSmtpRelay.updateConfig(user, pass, enabled);
+                updateSmtpStatusDisplay();
+                String statusMsg = enabled
+                        ? "Đã lưu cấu hình và BẬT tính năng Gmail SMTP Relay thành công!"
+                        : "Đã lưu cấu hình (Trạng thái: TẮT).";
+                JOptionPane.showMessageDialog(dialog, statusMsg, "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                dialog.dispose();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(dialog, "Lỗi khi lưu cấu hình: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        btnCancel.addActionListener(e -> dialog.dispose());
+
+        btnPanel.add(btnTest);
+        btnPanel.add(btnSave);
+        btnPanel.add(btnCancel);
+        dialog.add(btnPanel, BorderLayout.SOUTH);
+
+        dialog.setVisible(true);
     }
 
     private void shutdownServer() {

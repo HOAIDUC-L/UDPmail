@@ -3,6 +3,7 @@ import common.Protocol;
 import org.junit.jupiter.api.*;
 import server.MailServer;
 import server.MailStorage;
+import server.GmailSmtpRelay;
 
 import java.io.File;
 import java.io.IOException;
@@ -430,6 +431,42 @@ public class MailSystemIntegrationTest {
         } finally {
             clientSender.close();
             clientReceiver.close();
+        }
+    }
+
+    @Test
+    @Order(12)
+    public void testExternalEmailRoutingAndRelayConfig() throws Exception {
+        MailClient clientAlice = new MailClient("127.0.0.1", TEST_PORT);
+        try {
+            clientAlice.login("alice");
+
+            // 1. Attempting to send to an invalid format external email should fail with validation error
+            Exception exInvalid = assertThrows(Exception.class, () ->
+                    clientAlice.sendMail("not-an-email", "Subject: Hi\n\nTest"));
+            assertTrue(exInvalid.getMessage().contains("Invalid recipient email address")
+                    || exInvalid.getMessage().contains("Recipient email does not exist"));
+
+            // 2. When SMTP Relay is not configured, sending to a valid external email (@gmail.com)
+            // should return an error explaining that Gmail SMTP Relay is not configured.
+            Path testConfig = tempStorage.resolve("test_server_config.properties");
+            Files.writeString(testConfig, "smtp.gmail.enabled=false\n");
+            GmailSmtpRelay.init(testConfig);
+
+            Exception exNoConfig = assertThrows(Exception.class, () ->
+                    clientAlice.sendMail("recipient@gmail.com", "Subject: Hello World\n\nTesting external relay"));
+            assertTrue(exNoConfig.getMessage().contains("Gmail SMTP Relay chua duoc cau hinh tren Server"),
+                    "Should report Gmail SMTP Relay is not configured on server");
+
+            // 3. Test GmailSmtpRelay testConnection parameter validation
+            assertThrows(IllegalArgumentException.class, () ->
+                    GmailSmtpRelay.testConnection("", ""));
+            assertThrows(IllegalArgumentException.class, () ->
+                    GmailSmtpRelay.testConnection("test@gmail.com", ""));
+
+        } finally {
+            GmailSmtpRelay.init(GmailSmtpRelay.DEFAULT_CONFIG_PATH);
+            clientAlice.close();
         }
     }
 }

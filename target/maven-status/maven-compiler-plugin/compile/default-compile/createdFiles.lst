@@ -6,6 +6,7 @@ common/PacketUtils.class
 server/MailStorage$AccountRecord.class
 client/HeartbeatManager.class
 server/MailServerGUI$2.class
+server/GmailSmtpRelay$1.class
 server/ClientSession.class
 server/MailServer$1.class
 server/SessionManager.class
@@ -19,4 +20,5 @@ client/MailClientGUI$2.class
 common/Protocol$SessionStatus.class
 server/MailRequestHandler.class
 server/SessionManager$SessionChangeListener.class
+server/GmailSmtpRelay.class
 client/MailClientGUI.class

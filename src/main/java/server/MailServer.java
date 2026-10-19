@@ -127,6 +127,11 @@ public class MailServer {
 
         String lanIp = common.PacketUtils.detectLanIp();
         log("SERVER", "Mail Server started on " + host + ":" + port + " [LAN IP: " + lanIp + " - Client may khac can nhap IP nay]");
+        if (GmailSmtpRelay.isConfigured()) {
+            log("SERVER", "Gmail SMTP Relay Gateway: ENABLED (" + GmailSmtpRelay.getUsername() + ")");
+        } else {
+            log("SERVER", "Gmail SMTP Relay Gateway: DISABLED / NOT CONFIGURED");
+        }
 
         receiverThread = new Thread(this::receiveLoop, "UDP-Receiver-Thread");
         receiverThread.start();

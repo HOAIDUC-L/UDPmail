@@ -562,6 +562,52 @@ public class MailStorage {
     }
 
     /**
+     * Saves a copy of an outbound email (e.g. sent to external Gmail) to the sender's SENT folder.
+     */
+    public synchronized String saveSentMail(String sender, String senderIp, String recipientEmail, String content) throws IOException {
+        Path senderSent = getFolderDirectory(sender, Protocol.FOLDER_SENT);
+        if (!Files.exists(senderSent)) {
+            Files.createDirectories(senderSent);
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+        String dateHeader = now.format(DATE_TIME_FORMATTER);
+        String baseTime = now.format(FILE_TIMESTAMP_FORMATTER);
+        String ip = (senderIp != null && !senderIp.trim().isEmpty()) ? senderIp.trim() : "127.0.0.1";
+
+        // Separate Subject and Body cleanly if content contains Subject header
+        String mailSubject = "(No Subject)";
+        String mailBody = (content != null) ? content : "";
+        if (content != null && content.startsWith("Subject: ")) {
+            int subEnd = content.indexOf("\n\n");
+            if (subEnd != -1) {
+                mailSubject = content.substring("Subject: ".length(), subEnd).trim();
+                mailBody = content.substring(subEnd + 2);
+            }
+        }
+
+        // Clean recipient email for filename (replace characters that may be problematic in filenames)
+        String safeRecipient = (recipientEmail != null) ? recipientEmail.replaceAll("[^a-zA-Z0-9_.-]", "_") : "external";
+        String sentFilename = "SENT_to_" + safeRecipient + "_" + baseTime + ".txt";
+        Path sentFile = senderSent.resolve(sentFilename);
+        int seq = 1;
+        while (Files.exists(sentFile)) {
+            sentFilename = "SENT_to_" + safeRecipient + "_" + baseTime + "_" + seq + ".txt";
+            sentFile = senderSent.resolve(sentFilename);
+            seq++;
+        }
+
+        String sentMailContent = "To: " + recipientEmail + " [External Relay]\n"
+                + "Sender IP: " + ip + "\n"
+                + "Date: " + dateHeader + "\n"
+                + "Subject: " + mailSubject + "\n\n"
+                + mailBody;
+        Files.writeString(sentFile, sentMailContent, StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW);
+
+        return sentFilename;
+    }
+
+    /**
      * Reads mail from a specified folder (INBOX, SENT, TRASH).
      * If reading from INBOX and starts with UNREAD_, automatically renames to READ_.
      */
